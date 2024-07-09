@@ -33,7 +33,7 @@ syntax = "proto3";
 
 package greet;
 
-option go_package = "dubbo.apache.org/dubbo-go/v3/protocol/triple/internal/proto/dubbo3_gen;greet";
+option go_package = ";greet";
 
 import "unified_idl_extend/unified_idl_extend.proto";
 
