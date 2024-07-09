@@ -21,7 +21,9 @@ go build
 ## Usage
 To generate Hessian2 code using `protoc-gen-go-hessian2`, you can use the following command:
 ```shell
-protoc --go-hessian2_out=. --go-hessian2_opt=paths=source_relative your_file.proto
+protoc -I ./ \
+  --go-hessian2_out=./ --go-hessian2_opt=paths=source_relative \
+  ./greet.proto
 ```
 The `--go-hessian2_out` option specifies the output directory for the generated code, 
 and `--go-hessian2_opt=paths=source_relative` sets the output path to be relative to the source file.
@@ -33,7 +35,7 @@ syntax = "proto3";
 
 package greet;
 
-option go_package = ";greet";
+option go_package = "some_path/greet;greet";
 
 import "unified_idl_extend/unified_idl_extend.proto";
 
@@ -58,7 +60,9 @@ and set `java_class_name` to the corresponding Java class name.
 
 Then, you can run the following command to generate the Hessian2 code:
 ```shell
-protoc --go-hessian2_out=. --go-hessian2_opt=paths=source_relative greet/greet.proto
+protoc -I ./ \
+  --go-hessian2_out=./ --go-hessian2_opt=paths=source_relative \
+  ./greet.proto
 ```
 
 This will generate the `greet.hessian2.go` file in the same directory as your `greet.proto` file:
