@@ -24,9 +24,8 @@ import (
 )
 
 import (
-	"github.com/golang/protobuf/proto"
-	"github.com/pkg/errors"
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
@@ -198,12 +197,7 @@ func genMessageField(g *protogen.GeneratedFile, m *Message, field *Field) {
 
 func genMessageRelatedMethods(g *protogen.GeneratedFile, m *Message) {
 	g.P("func ", "(x *", m.GoIdent.GoName, ")", "JavaClassName() string {")
-	opts := m.Desc.Options().(*descriptorpb.MessageOptions)
-	ext, err := proto.GetExtension(opts, unified_idl_extend.E_MessageExtend)
-	if errors.Is(err, proto.ErrMissingExtension) || ext == nil {
-		panic(ErrNoJavaClassName)
-	}
-	hessian2MsgOpts, ok := ext.(*unified_idl_extend.Hessian2MessageOptions)
+	hessian2MsgOpts, ok := proto.GetExtension(m.Desc.Options(), unified_idl_extend.E_MessageExtend).(*unified_idl_extend.Hessian2MessageOptions)
 	if !ok {
 		panic(ErrExtendedOptionNotMatch)
 	}
